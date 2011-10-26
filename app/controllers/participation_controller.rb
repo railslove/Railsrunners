@@ -15,5 +15,7 @@ class ParticipationController < ApplicationController
   end
 
   def create
+    Participant.create(params[:participant])
+    redirect_to root_path
   end
 end
