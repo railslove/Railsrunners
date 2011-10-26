@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111026115621) do
+ActiveRecord::Schema.define(:version => 20111026160834) do
+
+  create_table "distances", :force => true do |t|
+    t.integer  "run_id"
+    t.float    "distance_in_km"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "participants", :force => true do |t|
     t.integer  "run_id"
@@ -20,12 +27,13 @@ ActiveRecord::Schema.define(:version => 20111026115621) do
     t.datetime "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "distance_id"
+    t.string   "email"
   end
 
   create_table "runs", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.float    "distance_in_km"
     t.string   "url"
     t.string   "charity"
     t.string   "charity_url"

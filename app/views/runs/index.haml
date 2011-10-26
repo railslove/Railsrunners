@@ -1,6 +1,7 @@
 
 =link_to "Create a new run", new_run_path
-
+|
+=link_to "Participate", participate_path
 
 %ul#runs
   - @runs.each do |run|
@@ -15,3 +16,6 @@
       .run_detail.charity
         %span.label Charity to donate
         %span.content=link_to run.charity, run.charity_url
+      - if !!run.participants.size
+        .run_detail.no_of_participants
+          %span.label=t('.participants', :count => run.participants.size)

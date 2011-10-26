@@ -1,0 +1,11 @@
+%h2 Register for the run
+
+= simple_form_for @participant, :url => participate_path do |f|
+  = f.input :name
+  = f.input :email
+  = f.association :run
+  = f.association :distance, :collection => []
+
+  = f.submit "Register for the run"
+
+= javascript_tag "var distances = #{@distances}"

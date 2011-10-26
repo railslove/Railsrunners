@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  run_id: 1
+  distance_in_km: 1.5
+
+two:
+  run_id: 1
+  distance_in_km: 1.5
