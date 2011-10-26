@@ -1,0 +1,17 @@
+
+=link_to "Create a new run", new_run_path
+
+
+%ul#runs
+  - @runs.each do |run|
+    %li.hide_details
+      .name=run.visual_name
+      .run_detail.when
+        %span.label When
+        %span.content=run.when
+      .run_detail.organized_by
+        %span.label Who is organizing
+        %span.content=run.user.name
+      .run_detail.charity
+        %span.label Charity to donate
+        %span.content=link_to run.charity, run.charity_url

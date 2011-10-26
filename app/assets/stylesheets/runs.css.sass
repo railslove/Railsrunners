@@ -1,0 +1,42 @@
+// Place all the styles related to the Runs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#runs
+  li
+    position: relative
+    list-style: none
+    &:before
+      content: '-'
+      font-weight: bold
+      position: absolute
+      top: 0
+      left: -15px
+      font-family: monospace
+    &.hide_details
+      &:before
+        content: '+'
+      .run_detail
+        display: none
+    .name
+      cursor: pointer
+form
+  .input
+    background-color: #eff0ef
+    padding: 3px 10px
+    border-width: 0 1px 1px
+    border-style: solid
+    border-color: #DDD
+    &:first-child
+      border-width: 1px
+    label
+      display: inline-block
+      width: 200px
+      margin-right: 10px
+      text-align: right
+    .hint
+      display: block
+      padding-left: 210px
+      font-style: italic
+      font-size: 90%
+      color: #666

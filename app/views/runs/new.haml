@@ -1,0 +1,11 @@
+%h2 New run
+
+= simple_form_for @run do |f|
+  = f.input :name, :hint => "Keep it the same as Railscamp name, so people will find it easily"
+  = f.input :url, :hint => "Put Railscamp URL"
+  = f.input :distance_in_km, :input_html => { :min => 0.01 }
+  = f.input :when, :as => :datetime, :start_year => Date.today.year, :start_month => Date.today.month, :start_day => Date.today.day, :end_year => Date.today.year + 12
+  = f.input :charity, :hint => "Charity of your choice"
+  = f.input :charity_url, :hint => "URL address to page with donation information"
+  
+  = f.submit "Create a run"

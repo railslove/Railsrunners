@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  name: MyString
+  distance_in_km: 1
+  url: MyString
+  charity: MyString
+  charity_url: MyString
+  when: MyString
+  notes: MyText
+
+two:
+  user_id: 1
+  name: MyString
+  distance_in_km: 1
+  url: MyString
+  charity: MyString
+  charity_url: MyString
+  when: MyString
+  notes: MyText

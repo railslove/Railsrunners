@@ -1,0 +1,22 @@
+!!! 5
+%html
+  %head
+    %title RailscampXK
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %header
+      %h1 RailscampXK
+      
+      %ul#user-links
+        - if user_signed_in?
+          %li.logout=link_to "Logout", destroy_user_session_path, :method => :delete
+        - else
+          %li.login=link_to "Sign in", new_user_session_path
+          %li.signup=link_to "Sign up", new_user_registration_path
+
+    = yield
+
+    %footer
+      Made with Railslove
