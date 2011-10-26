@@ -16,6 +16,6 @@
       .run_detail.charity
         %span.label Charity to donate
         %span.content=link_to run.charity, run.charity_url
-      - if !!run.participants.size
+      - if run.participants.size > 0
         .run_detail.no_of_participants
           %span.label=t('.participants', :count => run.participants.size)
