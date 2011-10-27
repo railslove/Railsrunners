@@ -10,7 +10,7 @@ class Run < ActiveRecord::Base
 
   accepts_nested_attributes_for :distances, :allow_destroy => true, :reject_if => proc { |attributes| attributes['distance_in_km'].blank? }
 
-  scope :registerable, where('`when` > ?', Time.now)
+  scope :registerable, where('runs.when > ?', Time.now)
 
   def visual_name
     "#{self.name} (#{distances_in_km})"
