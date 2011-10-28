@@ -15,7 +15,11 @@ class ParticipationController < ApplicationController
   end
 
   def create
-    Participant.create(params[:participant])
-    redirect_to root_path
+    @participant = Participant.new(params[:participant])
+    if @participant.save
+      redirect_to root_path
+    else
+      render new
+    end
   end
 end
