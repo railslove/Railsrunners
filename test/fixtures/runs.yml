@@ -7,7 +7,7 @@ one:
   url: MyString
   charity: MyString
   charity_url: MyString
-  when: MyString
+  start_at: MyString
   notes: MyText
 
 two:
@@ -17,5 +17,5 @@ two:
   url: MyString
   charity: MyString
   charity_url: MyString
-  when: MyString
+  start_at: MyString
   notes: MyText

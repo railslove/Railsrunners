@@ -2,7 +2,7 @@ class Run < ActiveRecord::Base
   validates_presence_of :name, :user, :distances
   validates_format_of :url, :with => URI::regexp(%w(http https))
   validates_format_of :charity_url, :with => URI::regexp(%w(http https))
-  # not validated: :when, :notes
+  # not validated: :start_at, :notes
 
   has_many :participants
   has_many :distances
@@ -10,7 +10,7 @@ class Run < ActiveRecord::Base
 
   accepts_nested_attributes_for :distances, :allow_destroy => true, :reject_if => proc { |attributes| attributes['distance_in_km'].blank? }
 
-  scope :registerable, where('runs.when > ?', Time.now)
+  scope :registerable, where('runs.start_at > ?', Time.now)
 
   def visual_name
     "#{self.name} (#{distances_in_km})"

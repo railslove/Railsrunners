@@ -7,7 +7,7 @@
     %label.float.optional{:for=>"run_distance_in_km"} Distance in km
     %input.numeric.float.optional.distance{:min=>"0.01", :name =>"run[distances_attributes][][distance_in_km]", :step=>"any", :type=>"number"}
     %span.add_distance_field [+]
-  = f.input :when, :as => :datetime, :start_year => Date.today.year, :start_month => Date.today.month, :start_day => Date.today.day, :end_year => Date.today.year + 12
+  = f.input :start_at, :as => :datetime, :start_year => Date.today.year, :start_month => Date.today.month, :start_day => Date.today.day, :end_year => Date.today.year + 12
   = f.input :charity, :hint => "Charity of your choice"
   = f.input :charity_url, :hint => "URL address to page with donation information"
   = f.input :notes, :as => :text, :input_html => {:rows => 4}

@@ -7,9 +7,9 @@
   - @runs.each do |run|
     %li.hide_details
       .name=run.visual_name
-      .run_detail.when
+      .run_detail.start_at
         %span.label When
-        %span.content=run.when
+        %span.content=run.start_at
       .run_detail.organized_by
         %span.label Who is organizing
         %span.content=run.user.name

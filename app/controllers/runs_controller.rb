@@ -3,7 +3,7 @@ class RunsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create]
 
   def index
-    @runs = Run.all(:order => "runs.when DESC", :include => [:user])
+    @runs = Run.all(:order => "runs.start_at DESC", :include => [:user])
   end
 
   def new
