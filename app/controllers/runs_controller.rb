@@ -9,13 +9,13 @@ class RunsController < ApplicationController
   def new
     @run = Run.new
   end
-  
+
   def create
     @run = Run.new(params[:run].merge(:user_id => current_user.id))
     if @run.save
-      redirect_to :action => :index
+      redirect_to root_path
     else
-      redirect_to :action => :index
+      render :new
     end
   end
 end
