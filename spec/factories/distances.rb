@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :distance do
-    run
+    #run
     distance_in_km 5
   end
 end

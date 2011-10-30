@@ -2,7 +2,7 @@ class Run < ActiveRecord::Base
   validates_presence_of :name, :user, :distances
   validates_format_of :url, :with => URI::regexp(%w(http https))
   validates_format_of :charity_url, :with => URI::regexp(%w(http https))
-  # not validated: :start_at, :notes
+  # not validated: :when, :notes
 
   has_many :participants
   has_many :distances
