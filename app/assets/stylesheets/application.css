@@ -49,9 +49,11 @@ html {
 }
 
 body {
-	margin:50px 0px; padding:0px;
+	margin:50px 0px; 
+  padding:0px;
 	text-align:center;
-  font-size: 1em; line-height: 1.4;
+  font-size: 1em; 
+  line-height: 1.4;
 }
 
 #content {
@@ -81,14 +83,12 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
    Links
    ========================================================================== */
 
-a { color: #00e; }
-a:visited { color: #551a8b; }
-a:hover { color: #06e; }
-a:focus { outline: thin dotted; }
-
-/* Improve readability when focused and hovered in all browsers: h5bp.com/h */
-a:hover, a:active { outline: 0; }
-
+a:link, a:visited {
+  color: #484848;
+}
+a:hover, a:focus, a:active {
+  color: #000;
+}
 
 /* =============================================================================
    Typography
@@ -131,8 +131,11 @@ sub { bottom: -0.25em; }
 
 ul, ol { margin: 1em 0; padding: 0 0 0 40px; list-style: none; }
 dd { margin: 0 0 0 40px; }
+
 nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+
 li { display: inline}
+
 #header h1 { display: none}
 
 /* =============================================================================
