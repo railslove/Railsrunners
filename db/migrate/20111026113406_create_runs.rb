@@ -7,7 +7,7 @@ class CreateRuns < ActiveRecord::Migration
       t.string :url
       t.string :charity
       t.string :charity_url
-      t.datetime :start_at
+      t.datetime :when
       t.text :notes
 
       t.timestamps

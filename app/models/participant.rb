@@ -5,4 +5,13 @@ class Participant < ActiveRecord::Base
 
   belongs_to :run
   belongs_to :distance
+
+  # right now just automatically accept the runners
+  before_save :accept, :on => :create
+
+  private
+
+  def accept
+    self.confirmed_at = Time.now
+  end
 end

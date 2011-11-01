@@ -47,5 +47,9 @@ module Railscampxk
 
     # deploying on heroku
     config.assets.initialize_on_precompile = false
+
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end
