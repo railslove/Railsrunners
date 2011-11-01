@@ -7,15 +7,23 @@
     = csrf_meta_tags
   %body
     #content
-      %header
-        %h1=# RailscampXK
-        = image_tag "logo.png", :width => "500px"
+      #header
+        %h1=link_to "Railsrunners", root_url
+        = link_to(image_tag("logo.png", :width => "500px"), root_url)
         %ul#user-links
+          %li=link_to "What", "#"
+          %li=link_to "Next Runs", "#"
+          %li=link_to "Results", "#"
+          %li=link_to "Register", "#"
+          %li=link_to "License", "#"
+          %li=link_to "Contact", "#"
           - if user_signed_in?
             %li.logout=link_to "Logout", destroy_user_session_path, :method => :delete
           - else
             %li.login=link_to "Sign in", new_user_session_path
-            %li.signup=link_to "Sign up", new_user_registration_path
+            %li.signup=link_to "Sign up", new_user_registration_pathi
+
+      %h1 Run Railscamper RUN!
 
       = yield
 
