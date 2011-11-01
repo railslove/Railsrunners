@@ -58,8 +58,12 @@ body {
 	width:800px;
 	margin:0px auto;
 	padding:15px;
-	border:1px dashed #333;
+	border:0px dashed #333;
 	}
+
+#footer {
+  margin-top: 100px;
+}
 
 body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 
