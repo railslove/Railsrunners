@@ -5,6 +5,13 @@ Railscampxk::Application.routes.draw do
   match 'participate', :to => "participation#create", :via => :post
 
   match 'runs', :to => "runs#new", :via => :get, :as => 'new_run'
-  resources :runs, :only => [:create]
-  root :to => "runs#index"
+  resources :runs do
+    collection do
+    get :what
+    get :results
+    get :license
+    get :contact
+    end
+  end
+  root :to => "runs#what"
 end

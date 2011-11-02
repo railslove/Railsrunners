@@ -11,34 +11,16 @@
         %h1=link_to "Railsrunners", root_url
         = link_to(image_tag("logo.png", :width => "500px"), root_url)
         %ul#user-links
-          %li=link_to "What", "#"
-          %li=link_to "Next Runs", "#"
-          %li=link_to "Results", "#"
-          %li=link_to "Register", "#"
-          %li=link_to "License", "#"
-          %li=link_to "Contact", "#"
+          %li=link_to "What", what_runs_url
+          %li=link_to "Next Runs", runs_url
+          %li=link_to "Results", results_runs_url
+          %li=link_to "License", license_runs_url
+          %li=link_to "Contact", contact_runs_url
           - if user_signed_in?
             %li.logout=link_to "Logout", destroy_user_session_path, :method => :delete
           - else
             %li.login=link_to "Sign in", new_user_session_path
             %li.signup=link_to "Sign up", new_user_registration_path
-
-      %h2 Running at the camp side
-      %p.summary
-        The idea was born after the first rubyconf in NOLA 2011 - as continous attendees of railscamps and runners we'd thought to start the railsrunners program - from geeks for geeks. Run baby run!
-      %h2
-        Run for Charity
-      %p.summary
-        We run for charity. Every host should define a charity and as a runner you should do a donation for it. Participating you will supporting something good.
-      %h2
-        Run for you
-      %p.summary
-        Running is great exercise. And, let's face it - programmers aren't known for getting a lot of exercise. SO take this opportunity to get some! If you can't run 5k yet, it's a nice attainable distance if you start training now. We recommend the 
-        %a(href="http://www.coolrunning.com/engine/2/2_3/181.shtml") Couch-to-5k program.
-      %h2
-        Run for fun
-      %p.summary
-        Running is a social activity. Get outdoors and spend some time with your fellow Rubyists doing something healthy and fun.        
 
       = yield
 
