@@ -8,8 +8,7 @@ describe Run do
 
   describe 'validations' do
     it 'does not allow to create an event in past' do
-      run = Run.new
-      run.start_at = 3.days.ago
+      run = Run.new(:start_at => 3.days.ago)
       run.valid?
       run.errors.full_messages.should include("You can't add a run in past")
     end
@@ -23,15 +22,31 @@ describe Run do
     end
 
     it 'does not allow any other values than url for url fields' do
-      obviously_not_a_url = 'not_a_url just some random string'
-      run = Run.new
-      run.url = obviously_not_a_url
-      run.charity_url = obviously_not_a_url
+      run = Run.new(:url => "blabla.com", :charity_url => "blubli.com")      
       run.valid?
       [:url, :charity_url].each do |field|
         run.errors[field].should include "is invalid"
       end
     end
+ 
+     it 'should be an google maps' do
+      obviously_not_a_maps_url = 'not_a_url just some random string'
+      run = Run.new(:url => "http://blabla.com", :charity_url => "http://blubli.com", :map_url => obviously_not_a_maps_url) 
+      run.valid?
+      run.errors[:map_url].should include "This isn't a google maps url"
+     end
+
+     it 'shouldnt be validated if no address is given' do
+      run = Run.new(:url => "http://blabla.com", :charity_url => "http://blubli.com") 
+      run.valid?
+      run.errors[:map_url].should_not include "This isn't a google maps url"
+     end
+
+      it 'shouldnt be validated if no address is given' do
+        run = Run.new(:url => "http://blabla.com", :charity_url => "http://blubli.com", :map_url => "http://maps.google.com/a_fucking_cool_map") 
+        run.valid?
+        run.errors[:map_url].should_not include "This isn't a google maps url"
+     end
   end
 
   describe 'integer distances in visual_name' do

@@ -2,7 +2,7 @@ class Run < ActiveRecord::Base
   validates_presence_of :name, :user, :distances, :start_at
   validates_format_of :url, :with => URI::regexp(%w(http https))
   validates_format_of :charity_url, :with => URI::regexp(%w(http https))
-
+  validate :url_is_google_maps_url
   validate :start_at_in_future
   # not validated: :notes
 
@@ -44,5 +44,9 @@ class Run < ActiveRecord::Base
 
   def start_at_in_future
      errors.add(:base, "You can't add a run in past") if self.start_at.present? && !self.start_at.future?
+  end
+
+  def url_is_google_maps_url
+    errors.add(:map_url, "This isn't a google maps url") if self.map_url.present? && /^http:\/\/maps\.google\.com\//.match(self.map_url).nil?
   end
 end

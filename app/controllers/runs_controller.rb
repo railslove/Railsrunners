@@ -15,6 +15,7 @@ class RunsController < ApplicationController
     if @run.save
       redirect_to root_path
     else
+      puts @run.errors.full_messages
       render :new
     end
   end
