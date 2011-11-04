@@ -49,11 +49,12 @@ html {
 }
 
 body {
-	margin:50px 0px; 
+	margin:0px 0px; 
   padding:0px;
 	text-align:center;
   font-size: 1em; 
   line-height: 1.4;
+  //background: #fff url(logo.png) no-repeat;
 }
 
 #content {

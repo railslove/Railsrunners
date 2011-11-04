@@ -5,7 +5,7 @@
 
 %ul#runs
   - @runs.each do |run|
-    %li.hide_details
+    %li
       .name=run.visual_name
       .run_detail.start_at
         %span.label When
@@ -19,3 +19,7 @@
       - if run.participants.size > 0
         .run_detail.no_of_participants
           %span.label=t('.participants', :count => run.participants.size)
+      %iframe(width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?q=cologne,+germany&hl=en&sll=37.0625,-95.677068&sspn=43.443045,76.113281&vpsrc=0&t=v&hnear=Cologne,+North+Rhine-Westphalia,+Germany&z=10&iwloc=A")
+      %br
+      %small
+        = link_to("View Larger Map", "http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=cologne,+germany&amp;aq=&amp;sll=37.0625,-95.677068&amp;sspn=43.443045,76.113281&amp;vpsrc=0&amp;t=v&amp;ie=UTF8&amp;hq=&amp;hnear=Cologne,+North+Rhine-Westphalia,+Germany&amp;z=10&amp;ll=50.940664,6.959912")     
