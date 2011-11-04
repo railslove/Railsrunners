@@ -3,7 +3,11 @@ class RunsController < ApplicationController
   before_filter :authenticate_user!, :only => [:new, :create]
 
   def index
-    @runs = Run.all(:order => "runs.start_at DESC", :include => [:user])
+    @runs = Run.registerable(:order => "runs.start_at DESC", :include => [:user])
+  end
+
+  def results
+    @runs = Run.past(:order => "runs.start_at DESC", :include => [:user])
   end
 
   def new
@@ -15,7 +19,6 @@ class RunsController < ApplicationController
     if @run.save
       redirect_to root_path
     else
-      puts @run.errors.full_messages
       render :new
     end
   end

@@ -24,6 +24,28 @@ describe RunsController do
     end
   end
 
+    describe 'GET results' do
+    before :each do
+      distance1 = Factory(:distance, :distance_in_km => 3)
+      distance2 = Factory(:distance, :distance_in_km => 4)
+      @run = Factory.build(:run, :distances => [distance1, distance2], :start_at => Time.now-3.days)
+      @run.save(:validate => false)
+      @run.reload
+      distance1.reload
+      distance2.reload
+    end
+
+    it 'is successful' do
+      get :results
+      response.should be_success
+    end
+
+    it 'shows runs' do
+      get :results
+      response.body.should include(@run.visual_name)
+    end
+  end
+
   describe 'GET new' do
     before :each do
       @user = Factory(:user)

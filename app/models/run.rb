@@ -13,6 +13,7 @@ class Run < ActiveRecord::Base
   accepts_nested_attributes_for :distances, :allow_destroy => true, :reject_if => proc { |attributes| attributes['distance_in_km'].blank? }
 
   scope :registerable, where('runs.start_at > ?', Time.now)
+  scope :past, where('runs.start_at < ?', Time.now)
 
   def visual_name(unit = 'km')
     unit = 'km' unless unit == 'mi'
