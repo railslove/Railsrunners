@@ -5,7 +5,7 @@ class ParticipationController < ApplicationController
     @runs = Run.registerable
 
     @distances = {}
-    @runs.each do |run|
+    @runs.registerable.each do |run|
       @distances[run.id] = {}
       run.distances.each do |distance|
         @distances[run.id][distance.id] = distance.distance_in_km
