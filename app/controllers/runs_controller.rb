@@ -17,7 +17,7 @@ class RunsController < ApplicationController
   def create
     @run = Run.new(params[:run].merge(:user_id => current_user.id))
     if @run.save
-      redirect_to root_path
+      redirect_to runs_url
     else
       render :new
     end
@@ -30,7 +30,7 @@ class RunsController < ApplicationController
   def update
     @run = current_user.runs.find(params[:id])
     if @run.update_attributes(params[:run]) 
-      redirect_to root_path
+      redirect_to runs_url
     else
       render :edit
     end

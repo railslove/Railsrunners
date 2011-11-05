@@ -30,7 +30,7 @@ describe ParticipationController do
     it 'saves a participant' do
       lambda {
         post :create, :participant => {:run_id => @run.id, :distance_id => @distance.id, :name => 'Twilight Dash'}
-        response.should redirect_to root_path
+        response.should redirect_to runs_url
       }.should change(Participant, :count).by(1)
     end
 

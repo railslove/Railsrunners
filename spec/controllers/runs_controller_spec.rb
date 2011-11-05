@@ -100,7 +100,7 @@ describe RunsController do
     it 'should be udpated' do
       put :update, :id => @run.id, :run => {:name => 'Run to the Hills Railscamp Spanish'}
       @run.reload
-      response.should(redirect_to(root_url))
+      response.should(redirect_to(runs_url))
       @run.name.should == "Run to the Hills Railscamp Spanish"
     end
 
@@ -127,7 +127,7 @@ describe RunsController do
           "start_at(5i)"=>later.min.to_s, # minutes
           :distances_attributes => [{"distance_in_km"=>"4.4"}]
         }
-        response.should redirect_to root_path
+        response.should redirect_to runs_url
       }.should change(Run, :count).by(1)
     end
 

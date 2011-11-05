@@ -17,7 +17,7 @@ class ParticipationController < ApplicationController
   def create
     @participant = Participant.new(params[:participant])
     if @participant.save
-      redirect_to root_path
+      redirect_to runs_url
     else
       render :new
     end
