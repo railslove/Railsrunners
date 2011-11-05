@@ -58,6 +58,58 @@ describe RunsController do
     end
   end
 
+  describe 'GET edit as owner' do
+    before :each do
+      @user = Factory(:user)
+      distance = Factory(:distance, :distance_in_km => 3)      
+      @run = Factory(:run, :distances => [distance], :user => @user)
+      sign_in :user, @user
+    end
+
+    it 'is successful' do
+      get :edit, :id => @run.id
+      response.should be_success
+    end
+
+  end
+  
+  describe 'GET edit not as an owner' do
+    before :each do
+      @user = Factory(:user)
+      distance = Factory(:distance, :distance_in_km => 3)      
+      @run = Factory(:run, :distances => [distance])
+      sign_in :user, @user
+    end
+
+    it 'is not successful' do
+      lambda{ 
+        get :edit, :id => @run.id 
+      }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+
+  end
+
+  describe 'PUT update' do
+    before :each do
+      @user = Factory(:user)
+      distance = Factory(:distance, :distance_in_km => 3)      
+      @run = Factory(:run, :distances => [distance], :user => @user)
+      sign_in :user, @user
+    end
+
+    it 'should be udpated' do
+      put :update, :id => @run.id, :run => {:name => 'Run to the Hills Railscamp Spanish'}
+      @run.reload
+      response.should(redirect_to(root_url))
+      @run.name.should == "Run to the Hills Railscamp Spanish"
+    end
+
+    it 'should not be udpated' do
+      put :update, :id => @run.id, :run => {:name => ''}
+      response.should render_template :edit
+    end
+  end
+
   describe 'POST create' do
     before :each do
       @user = Factory(:user)

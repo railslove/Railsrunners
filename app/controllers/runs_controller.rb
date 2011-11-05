@@ -23,4 +23,17 @@ class RunsController < ApplicationController
     end
   end
 
+  def edit
+    @run = current_user.runs.find(params[:id])
+  end
+
+  def update
+    @run = current_user.runs.find(params[:id])
+    if @run.update_attributes(params[:run]) 
+      redirect_to root_path
+    else
+      render :edit
+    end
+  end
+
 end

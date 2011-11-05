@@ -6,6 +6,8 @@
 %ul#runs
   - @runs.each do |run|
     %li
+      - if current_user && current_user.runs.include?(run)
+        =link_to "Edit", edit_run_url(run)
       .name=run.visual_name
       .run_detail.start_at
         %span.label When
