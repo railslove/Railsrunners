@@ -15,7 +15,7 @@
         %li=link_to "Next Runs", runs_url
         %li=link_to "Results", results_runs_url
         %li=link_to "License", license_runs_url
-        %li=link_to "Contact", contact_runs_url
+        %li=link_to "Kudos & Contact", contact_runs_url
         - if user_signed_in?
           %li.logout=link_to "Logout", destroy_user_session_path, :method => :delete
         - else
