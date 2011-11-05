@@ -29,7 +29,7 @@ class RunsController < ApplicationController
 
   def update
     @run = current_user.runs.find(params[:id])
-    if @run.update_attributes(params[:run]) 
+    if @run.update_attributes(params[:run])
       redirect_to runs_url
     else
       render :edit

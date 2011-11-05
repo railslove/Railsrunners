@@ -4,6 +4,7 @@ class Run < ActiveRecord::Base
   validates_format_of :charity_url, :with => URI::regexp(%w(http https))
   validate :url_is_a_valid_map_url
   validate :start_at_in_future
+  before_validation :remove_duplicate_distances
   # not validated: :notes
 
   has_many :participants, :dependent => :destroy
@@ -41,7 +42,24 @@ class Run < ActiveRecord::Base
     end
   end
 
+  def past?
+    self.start_at.past?
+  end
+
   private
+
+  #####################################
+  ##  VALIDATING FUNCTIONS
+  #####################################
+
+  def remove_duplicate_distances
+    self.distances.each do |distance|
+      ary = self.distances - [distance]
+      ary.each do |distance_to_check|
+        distance_to_check.destroy if distance.distance_in_km == distance_to_check.distance_in_km && (!distance.destroyed? && !distance_to_check.destroyed?)
+      end
+    end
+  end
 
   def start_at_in_future
      errors.add(:base, "You can't add a run in past") if self.start_at.present? && !self.start_at.future?
