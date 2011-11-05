@@ -6,6 +6,29 @@ describe Run do
   it { should have_many(:distances) }
   it { should belong_to(:user) }
 
+  describe 'scopes' do
+
+      before(:each) do
+        @distance = Factory(:distance)
+        @past_run = Factory.build(:run, :start_at => 3.days.ago)
+        @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
+        @past_run.distances << @distance
+        @future_run.distances << @distance
+        @past_run.save(:validate => false)
+        @future_run.save
+      end
+
+    it 'should get runs in the past' do
+      Run.past.should include @past_run
+      Run.past.should_not include @future_run          
+    end
+
+    it 'should get runs in the future' do
+      Run.registerable.should include @future_run
+      Run.registerable.should_not include @past_run    
+    end
+  end
+  
   describe 'validations' do
     it 'does not allow to create an event in past' do
       run = Run.new(:start_at => 3.days.ago)
