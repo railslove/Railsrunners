@@ -1,45 +1,42 @@
+%div.box.box-01
+  %p.links
+    =link_to "Create a new run", new_run_path
+    |
+    =link_to "Participate", participate_path
 
-=link_to "Create a new run", new_run_path
-|
-=link_to "Participate", participate_path
-
-%ul#runs
-  - @runs.each do |run|
-    %li
-      - if current_user && current_user.runs.include?(run)
-        =link_to "Edit", edit_run_url(run)
-      .name=run.visual_name
-      .run_detail.start_at
-        %span.label When
-        %span.content=run.start_at
-      .run_detail.organized_by
-        %span.label Who is organizing
-        %span.content=run.user.name
-      .run_detail.charity
-        %span.label Charity to donate
-        %span.content=link_to run.charity, run.charity_url
-      - if run.participants.size > 0
-        .run_detail.no_of_participants
-          %span.label=t('.participants', :count => run.participants.size)
-      %iframe(width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="#{run.map_url}")
-      %br
-      %small
-        = link_to("View Larger Map", run.map_url)     
-      %br
-      %p.span.label
-        Results
-        - run.distances.each do |distance|
-          Distance:
-          = distance.distance_in_km
-          %ul
-            - distance.participants.each do |participant|
-              %li(style = "display: block")
-                %strong
-                  Name:
-                = participant.name
-                %strong
-                  Time:
-                = participant.time
-                %strong
-                  Distance:
-                = participant.distance.distance_in_km
+  %ul#runs
+    - @runs.each do |run|
+      %li
+        .name=run.visual_name
+        .run_detail.start_at
+          %span.label When
+          %span.content=run.start_at
+        .run_detail.organized_by
+          %span.label Who is organizing
+          %span.content=run.user.name
+        .run_detail.charity
+          %span.label Charity to donate
+          %span.content=link_to run.charity, run.charity_url
+        - if run.participants.size > 0
+          .run_detail.no_of_participants
+            %span.label=t('.participants', :count => run.participants.size)
+        %iframe(width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="#{run.map_url}")
+        %p
+          = link_to("View Larger Map", run.map_url, :class => '.button.button-01')
+        %p.span.label
+          Results
+          - run.distances.each do |distance|
+            Distance:
+            = distance.distance_in_km
+            %ul
+              - distance.participants.each do |participant|
+                %li(style = "display: block")
+                  %strong
+                    Name:
+                  = participant.name
+                  %strong
+                    Time:
+                  = participant.time
+                  %strong
+                    Distance:
+                  = participant.distance.distance_in_km

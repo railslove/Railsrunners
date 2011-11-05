@@ -1,0 +1,49 @@
+ul#runs {
+  margin: 0;
+  padding: 0;
+}
+
+  ul#runs li {
+    border-bottom: 1px dotted #ccc;
+    display: block;
+    margin-bottom: 1em;
+    padding-top: 1em;
+  }
+
+    ul#runs li div {
+      font-size: 0.8em;
+      margin-bottom: 0.25em;
+      overflow: hidden;
+      padding-bottom: 0.25em;
+    }
+
+      ul#runs li div.data {
+        font-size: 1em;
+      }
+
+      ul#runs li div span.label,
+      ul#runs li div span.label {
+        float: left;
+      }
+
+      ul#runs li div span.label {
+        width: 170px;
+      }
+
+      ul#runs li div span.content {
+        color: #555;
+      }
+
+    ul#runs li iframe {
+      background: #fff;
+      border: 1px solid #ccc;
+      display: block;
+      margin: 1em 0 0 0;
+      padding: 5px;
+
+      -webkit-background-clip: padding-box; /* fix WebKit background bleed on border-radius */
+      -webkit-border-radius: 5px;
+         -moz-border-radius: 5px;
+              border-radius: 5px;
+
+    }
