@@ -6,10 +6,16 @@ class Participant < ActiveRecord::Base
   belongs_to :run
   belongs_to :distance
 
+  validate :cannot_participate_in_past_run
+
   # right now just automatically accept the runners
   before_save :accept, :on => :create
 
   private
+
+  def cannot_participate_in_past_run
+    errors.add(:run, 'has already took place. You can only register for upcoming runs.') if self.run && self.run.past?
+  end
 
   def accept
     self.confirmed_at = Time.now
