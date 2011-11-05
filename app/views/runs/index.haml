@@ -24,7 +24,7 @@
           - if current_user && current_user.runs.include?(run)
             = link_to "Edit", edit_run_url(run)
         %div
-          = render :partial => 'map', :locals => {:run => run}
+          =# render :partial => 'map', :locals => {:run => run}
           %div
             %small
-              = link_to("View Larger Map", run.map_url, :class => 'button small')
+              =# link_to("View Larger Map", run.map_url, :class => 'button small')

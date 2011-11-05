@@ -134,6 +134,12 @@ input[type=submit]:hover,
       border-color: #aaa;
     }
 
+    #user-links a.current {
+      color: black;
+      border-color: #999;
+      background-color: #eee
+    }
+
 #content {
   width:550px;
   margin:0px auto;

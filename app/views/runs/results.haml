@@ -20,9 +20,11 @@
         - if run.participants.size > 0
           .run_detail.no_of_participants
             %span.label=t('.participants', :count => run.participants.size)
-        %iframe(width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="#{run.map_url}")
-        %p
-          = link_to("View Larger Map", run.map_url, :class => '.button.button-01')
+        %div
+          =# render :partial => 'map', :locals => {:run => run}
+          %div
+            %small
+              =# link_to("View Larger Map", run.map_url, :class => 'button small')
         %p.span.label
           Results
           - run.distances.each do |distance|
@@ -37,6 +39,3 @@
                   %strong
                     Time:
                   = participant.time
-                  %strong
-                    Distance:
-                  = participant.distance.distance_in_km
