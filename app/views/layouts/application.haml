@@ -6,27 +6,28 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    #content
-      #header
-        %h1=link_to "Railsrunners", root_url
-        = link_to(image_tag("logo.png", :width => "800px"), root_url)
-        %ul#user-links
-          %li=link_to "What", what_runs_url
-          %li=link_to "Next Runs", runs_url
-          %li=link_to "Results", results_runs_url
-          %li=link_to "License", license_runs_url
-          %li=link_to "Contact", contact_runs_url
-          - if user_signed_in?
-            %li.logout=link_to "Logout", destroy_user_session_path, :method => :delete
-          - else
-            %li.login=link_to "Sign in", new_user_session_path
-            %li.signup=link_to "Sign up", new_user_registration_path
 
+    #header
+      %h1=link_to "Railsrunners", root_url
+      = link_to(image_tag("logo.png", :width => "800px"), root_url)
+      %ul#user-links
+        %li=link_to "What", what_runs_url
+        %li=link_to "Next Runs", runs_url
+        %li=link_to "Results", results_runs_url
+        %li=link_to "License", license_runs_url
+        %li=link_to "Contact", contact_runs_url
+        - if user_signed_in?
+          %li.logout=link_to "Logout", destroy_user_session_path, :method => :delete
+        - else
+          %li.login=link_to "Sign in", new_user_session_path
+          %li.signup=link_to "Sign up", new_user_registration_path
+
+    #content
       = yield
 
-      #footer
-        a 2011 
-        = link_to("@railscamp_es", "http://twitter.com/railscamp_es") 
-        project brought to you by
-        = link_to(image_tag("railslove.png", :height => "18px"), "http://railslove.com")
-        Forrest & William. So, run baby run!
+    #footer
+      a 2011
+      = link_to("@railscamp_es", "http://twitter.com/railscamp_es")
+      project brought to you by
+      = link_to(image_tag("railslove.png", :height => "18px"), "http://railslove.com")
+      Forrest & William. So, run baby run!

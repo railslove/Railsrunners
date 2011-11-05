@@ -3,7 +3,7 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree . 
+ *= require_tree .
 */
 
 /*
@@ -49,30 +49,200 @@ html {
 }
 
 body {
-	margin:0px 0px; 
+  margin: 1.5em 0;
   padding:0px;
-	text-align:center;
-  font-size: 1em; 
+  text-align:center;
+  font-size: 1em;
   line-height: 1.4;
-  //background: #fff url(logo.png) no-repeat;
+  font: 62.5% "Myriad Pro","Lucida Grande",Tahoma,Verdana,Arial,sans-serif;
 }
+
+.text-align-center {
+  text-align: center;
+}
+
+input[type=submit],
+.button.button-01 {
+  display: inline-block;
+  background: #ddd;
+  border: 1px solid #bbb;
+  color: #333;
+  line-height: 1;
+  padding: 0.3em 0.5em 0.25em 0.5em;
+  text-decoration: none;
+  text-shadow: 1px 1px 0 #fff;
+
+  -webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.1), 0 2px 0 rgba(0,0,0,.05);
+     -moz-box-shadow: inset 0 -2px 0 rgba(0,0,0,.1), 0 2px 0 rgba(0,0,0,.05);
+          box-shadow: inset 0 -2px 0 rgba(0,0,0,.1), 0 2px 0 rgba(0,0,0,.05);
+
+
+  -webkit-background-clip: padding-box; /* fix WebKit background bleed on border-radius */
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+
+}
+
+input[type=submit]:hover,
+.button.button-01:hover {
+  background-color: #ccc;
+}
+
+#content .button.small {
+  color: #555;
+  font-size: 1em;
+  text-decoration: none;
+}
+
+.box.box-01, form {
+  background: #eee;
+  border: 1px solid #ccc;
+  margin-bottom: 1.5em;
+  padding: 0.5em 1.5em;
+  -webkit-background-clip: padding-box; /* fix WebKit background bleed on border-radius */
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+.box.box-02 {
+  background: #DCE3E8;
+  border: 1px solid #83A9C7;
+  margin-bottom: 1.5em;
+  padding: 0.75em 1em 0.5em 1em;
+  -webkit-background-clip: padding-box; /* fix WebKit background bleed on border-radius */
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+#user-links {
+  margin-top: 2.5em;
+}
+
+  #user-links li {
+    margin: 0 1.25em;
+  }
+
+    #user-links li a {
+      border-bottom: 2px solid #D5D5D5;
+      text-decoration: none;
+    }
+
+    #user-links li a:focus, #user-links li a:hover {
+      border-color: #aaa;
+    }
 
 #content {
-	width:800px;
-	margin:0px auto;
-	padding:15px;
-	border:0px dashed #333;
-	}
+  width:550px;
+  margin:0px auto;
+  padding:15px;
+  border:0px dashed #333;
+  text-align: left;
+  color: #2F96D4;
+  font-size: 1.8em;
+}
+
+#content h1 {
+  border-bottom: 1px dotted #ccc;
+  color: #000;
+  font-size: 1.2em;
+}
+
+#content h2 {
+  color: #000;
+  font-size: 1em;
+}
+
+#content a {
+  font-size: 1em;
+}
+
+#content .license {
+  color: #666;
+  font-size: 0.8em;
+}
+
+#content p.links {
+  border-bottom: 1px dotted #ccc;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+#content form {}
+
+  #content form div,
+  #content form p {
+    margin: 1em 0;
+  }
+
+    #content form label {
+      color: #333;
+      display: block;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    #content form span.error {
+      color: #7B130F;
+      display: block;
+      margin-top: 0.5em;
+    }
+
+    #content form .field_with_errors {
+      background-color: #EBD3D3;
+      border: 1px solid #A55F5B;
+      padding: 1em 0.5em 1em 0.5em;
+
+      -webkit-background-clip: padding-box; /* fix WebKit background bleed on border-radius */
+      -webkit-border-radius: 5px;
+         -moz-border-radius: 5px;
+              border-radius: 5px;
+
+    }
+
+    #content form input[type=text],
+    #content form input.string,
+    #content form input.numeric,
+    #content form select,
+    #content form textarea {
+      border: 1px solid #ccc;
+      font-size: 0.9em;
+      padding: 0.25em 0.5em;
+
+      -webkit-background-clip: padding-box; /* fix WebKit background bleed on border-radius */
+      -webkit-border-radius: 3px;
+         -moz-border-radius: 3px;
+              border-radius: 3px;
+    }
+
+    #content form input.numeric {
+      margin-bottom: 0.5em;
+    }
+
+    #content form textarea {
+      height: 5em;
+      width: 90%;
+    }
+
+    #content form .hint {
+      color: #999;
+      display: block;
+      font-size: 0.7em;
+      font-style: italic;
+      margin-top: 0.15em;
+    }
 
 #footer {
-  margin-top: 100px;
+  color: #666;
+  margin: 4em 0 2em 0;
 }
 
-#content .summary {
-  font-size: 1.8em; /* 18px */
-  color: #2F96D4;
-  //width: 425px;
-}
+  #footer a {
+    color: #000;
+    font-size: 1em;
+  }
 
 
 body, button, input, select, textarea { font-family: sans-serif; color: #222; }
@@ -237,7 +407,7 @@ textarea { overflow: auto; vertical-align: top; resize: vertical; }
 
 /* Colors for form validity */
 input:valid, textarea:valid {  }
-input:invalid, textarea:invalid { background-color: #f0dddd; }
+input:invalid, textarea:invalid { }
 
 
 /* =============================================================================
