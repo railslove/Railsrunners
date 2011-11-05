@@ -24,12 +24,14 @@ Running is a social activity. Get outdoors and spend some time with your fellow 
 
 ## Authors
 
-* Antonio Santos [[antonio]]
-* Juan G Hurtado [[juanghurtado]]
-* Mike Poltyn [[holek]]
-* Jan Kus [[koos]]
+* [Antonio Santos](http://github.com/antonio)
+* [Juan G Hurtado](http://github.com/juanghurtado)
+* [Mike Poltyn](http://github.com/holek)
+* [Jan Kus](http://github.com/koos)
 
 ## Copyright
 
-There is no copyright. This is a 2011 @railscamp_es project brought to you by   Forrest & William. So, run baby run!
+There is no copyright (we release it as public domain). This is a 2011 @railscamp_es project brought to you by [@railslove](http://github.com/railslove) Forrest & William. So, run baby run!
 
+In some countries this may not be legally possible; if so:
+We, contributors, grant anyone the right to use this work for any purpose, without any conditions, unless such conditions are required by law.
