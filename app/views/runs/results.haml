@@ -21,15 +21,24 @@
           .run_detail.no_of_participants
             %span.label=t('.participants', :count => run.participants.size)
         %div
-          =# render :partial => 'map', :locals => {:run => run}
-          %div
-            %small
-              =# link_to("View Larger Map", run.map_url, :class => 'button small')
+          - if run.map_url.present? && run.msid.present?
+            = image_tag run.map_url
+            %div
+              %small
+                = link_to("View Larger Map", "http://maps.google.com/maps/ms?msid=#{run.msid}&msa=0" , :class => 'button small')
+        .run_detail.notes
+          %span.label Notes
+          %br
+          %span.content=run.notes
+        - if current_user && current_user.runs.include?(run)
+          = link_to "Edit", edit_run_url(run)
         %p.span.label
           Results
           - run.distances.each do |distance|
             Distance:
             = distance.distance_in_km
+            - if distance.participants.blank?
+              nobody ran that distance
             %ul
               - distance.participants.each do |participant|
                 %li(style = "display: block")
