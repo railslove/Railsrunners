@@ -11,6 +11,10 @@ Railscampxk::Application.routes.draw do
     get :license
     get :contact
     end
+    member do
+      get :insert_result
+      #post
+    end
   end
   root :to => "runs#what"
 end

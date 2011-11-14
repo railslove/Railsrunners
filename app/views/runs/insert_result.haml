@@ -1,0 +1,12 @@
+%h2 Insert result
+
+= simple_form_for @participant, :url => insert_result_run_path(@run.id) do |f|
+
+  %p= "Hello, #{@participant.name}! Fill in your result for the run"
+  .fieldset
+    = f.input :hours, :min => 0, :step => 1, :hint => 'h'
+    = f.input :minutes, :min => 0, :max => 59, :step => 1, :hint => 'm'
+    = f.input :seconds, :min => 0, :max => 59, :step => 1, :hint => 's'
+
+  = f.submit 'Submit your result'
+
