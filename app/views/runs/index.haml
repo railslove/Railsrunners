@@ -2,7 +2,7 @@
   %p.links
     =link_to "Create a new run", new_run_path
     |
-    =link_to "Participate", participate_path
+    =link_to "Participate", new_participant_path
 
   %ul#runs
     - @runs.each do |run|
@@ -21,10 +21,15 @@
           - if run.participants.size > 0
             .run_detail.no_of_participants
               %span.label=t('.participants', :count => run.participants.size)
+          %div
+            - if run.map_url.present? && run.msid.present?
+              = image_tag run.map_url
+              %div
+                %small
+                  = link_to("View Larger Map", "http://maps.google.com/maps/ms?msid=#{run.msid}&msa=0" , :class => 'button small')
+          .run_detail.notes
+            %span.label Notes
+            %br
+            %span.content=run.notes
           - if current_user && current_user.runs.include?(run)
             = link_to "Edit", edit_run_url(run)
-        %div
-          =# render :partial => 'map', :locals => {:run => run}
-          %div
-            %small
-              =# link_to("View Larger Map", run.map_url, :class => 'button small')

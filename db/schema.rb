@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111106204037) do
+ActiveRecord::Schema.define(:version => 20111112220649) do
 
   create_table "distances", :force => true do |t|
     t.integer  "run_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20111106204037) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "map_url"
+    t.string   "msid"
   end
 
   create_table "users", :force => true do |t|

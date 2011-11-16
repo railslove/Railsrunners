@@ -1,4 +1,4 @@
-class ParticipationController < ApplicationController
+class ParticipantsController < ApplicationController
 
   def new
     @participant = Participant.new
@@ -22,4 +22,20 @@ class ParticipationController < ApplicationController
       render :new
     end
   end
+
+  # TODO TEST  
+  def edit
+    @participant = Participant.find_by_result_token(params[:token])
+  end
+
+  # TODO TEST
+  def update
+    @participant = Participant.find_by_result_token(params[:token])
+    if @participant && !@participant.run.past?
+      redirect_to runs_url, :alert => 'Thanks for your time entry.'
+    else
+      redirect_to root_url, :alert => 'Something went wrong'    
+    end
+  end
+
 end

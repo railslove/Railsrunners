@@ -1,5 +1,8 @@
 require 'simplecov'
+require 'fakeweb'
 SimpleCov.start 'rails'
+
+FakeWeb.allow_net_connect = false
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'

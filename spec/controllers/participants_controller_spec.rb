@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ParticipationController do
+describe ParticipantsController do
   render_views
 
   describe 'GET new' do

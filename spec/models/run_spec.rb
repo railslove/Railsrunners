@@ -6,6 +6,53 @@ describe Run do
   it { should have_many(:distances) }
   it { should belong_to(:user) }
 
+  describe '#encode_google_map' do
+
+    before(:each) do
+      @distance = Factory(:distance)
+      @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
+      @future_run.distances << @distance
+      @future_run.msid = "211270727460700862622.0004ae3543b46f1649927"
+    end
+
+    it 'should encode the url' do
+      response = "http://maps.google.com/maps/api/staticmap?sensor=false&size=950x300&path=enc%3A_osuDh%7EwdPko%40zb%40sFpDdUxe%40%60FrPzElTxAda%40rAfk%40iN%7E_%40eJnWcQhYcQvXtVnQ"
+      FakeWeb.register_uri(:get, "http://static-maps-generator.appspot.com/url?msid=#{@future_run.msid}&size=950x300", :body => response)
+      @future_run.save      
+      @future_run.map_url.should eql "http://maps.google.com/maps/api/staticmap?sensor=false&size=950x300&path=enc%3A_osuDh%7EwdPko%40zb%40sFpDdUxe%40%60FrPzElTxAda%40rAfk%40iN%7E_%40eJnWcQhYcQvXtVnQ"
+    end
+
+  end
+
+  context "#save" do
+    
+    context "when msid changed?" do
+
+      it "should encode the url" do
+        @distance = Factory(:distance)
+        @future_run = Factory.build(:run, :start_at => Time.now + 3.days, :msid => "211270727460700862622.0004ae3543b46f1649927")
+        @future_run.distances << @distance
+        @future_run.should be_msid_changed
+        @future_run.should_receive(:encode_google_map)
+        @future_run.save!        
+      end
+
+    end
+
+    context "when msid not changed?" do
+
+      it "shouldn't encode the url" do
+        @distance = Factory(:distance)
+        @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
+        @future_run.distances << @distance
+        @future_run.should_not_receive(:encode_google_map)
+        @future_run.save!        
+      end
+
+    end
+
+  end
+
   describe 'scopes' do
 
       before(:each) do
@@ -50,14 +97,7 @@ describe Run do
       [:url, :charity_url].each do |field|
         run.errors[field].should include "is invalid"
       end
-    end
- 
-     it 'should be an google maps' do
-      obviously_not_a_maps_url = 'not_a_url just some random string'
-      run = Run.new(:url => "http://blabla.com", :charity_url => "http://blubli.com", :map_url => obviously_not_a_maps_url) 
-      run.valid?
-      run.errors[:map_url].should include "This isn't a google maps url"
-     end
+    end 
 
      it 'shouldnt be validated if no address is given' do
       run = Run.new(:url => "http://blabla.com", :charity_url => "http://blubli.com") 

@@ -1,6 +1,6 @@
 %h2 Register for the run
 
-= simple_form_for @participant, :url => participate_path do |f|
+= simple_form_for @participant do |f|
   = f.input :name
   = f.input :email
   = f.association :run, :collection => Run.registerable

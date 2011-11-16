@@ -10,18 +10,6 @@ class RunsController < ApplicationController
     @runs = Run.past(:order => "runs.start_at DESC", :include => [:user])
   end
 
-  def insert_result
-    @participant = Participant.find_by_result_token(params[:token])
-    @run = Run.find(params[:id])
-    if @participant.present? && @participant.run == @run
-      # Do stuff
-    elsif !@run.past?
-      redirect_to @run, :alert => 'You cannot add results to runs that have not been finished.'
-    else
-      redirect_to @run, :alert => 'Your result token is invalid.'
-    end
-  end
-
   def new
     @run = Run.new
   end

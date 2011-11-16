@@ -1,15 +1,15 @@
 Hello, <%= @participant.name -%>!
 
-You have successfully registered for a run at <%= @run.visual_name -%>.
+You have successfully registered for a run at <%= @participant.run.visual_name -%>.
 
 Below you will find your result link. Use it after the run to insert your result.
 
-  <%= insert_result_run_url(@run.id, :token => @participant.result_token) -%>
+  <%= edit_participant_url(@participant.id, :token => @participant.result_token) -%>
 
 Remeber to get yourself warmed up before the run, and don't forget anything! Here is a quick checklist of what you might need:
 
 * timer,
-* printed proof of your donation to chosen charity: <%= @run.charity -%> ( <%= @run.charity_url -%> ),
+* printed proof of your donation to chosen charity: <%= @participant.run.charity -%> ( <%= @participant.run.charity_url -%> ),
 * a pair of shoes,
 * a towel,
 * somthing to drink,

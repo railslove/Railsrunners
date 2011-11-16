@@ -2,9 +2,9 @@ class Run < ActiveRecord::Base
   validates_presence_of :name, :user, :distances, :start_at
   validates_format_of :url, :with => URI::regexp(%w(http https))
   validates_format_of :charity_url, :with => URI::regexp(%w(http https))
-  validate :url_is_a_valid_map_url
   validate :start_at_in_future
   before_validation :remove_duplicate_distances
+  before_save :encode_google_map, :if => :msid_changed?
   # not validated: :notes
 
   has_many :participants, :dependent => :destroy
@@ -48,6 +48,11 @@ class Run < ActiveRecord::Base
 
   private
 
+  def encode_google_map
+    response = HTTParty.get "http://static-maps-generator.appspot.com/url?msid=#{self.msid}&size=950x300"
+    self.map_url = response.body
+  end
+
   #####################################
   ##  VALIDATING FUNCTIONS
   #####################################
@@ -65,8 +70,4 @@ class Run < ActiveRecord::Base
      errors.add(:base, "You can't add a run in past") if self.start_at.present? && !self.start_at.future?
   end
 
-  # this is hackish... want to use api's here.
-  def url_is_a_valid_map_url
-    errors.add(:map_url, "This isn't a google maps url") if self.map_url.present? && /^http:\/\/maps\.google\.com\//.match(self.map_url).nil? && /^http:\/\/www\.gmap-pedometer\.com\//.match(self.map_url).nil?
-  end
 end
