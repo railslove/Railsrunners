@@ -12,6 +12,8 @@ gem 'haml'
 gem 'simple_form'
 gem 'heroku'
 gem 'httparty'
+gem 'postageapp', :path => "/Volumes/code/postageapp-ruby"
+#gem 'elanie', :path => "/Volumes/code/elanie-ruby"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -43,4 +45,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false, :group => :test
   gem 'fakeweb'
+  gem 'mocha'
 end

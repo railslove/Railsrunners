@@ -48,6 +48,15 @@ html {
   color: #484848;
 }
 
+#logo {
+  position: absolute;
+  width: 950px;
+  height: 452px;
+  background: transparent url(logo.png) no-repeat;
+  z-index: -100;
+  margin:0px auto;
+}
+
 body {
   margin: 1.5em 0;
   padding:0px;
@@ -505,4 +514,16 @@ td { vertical-align: top; }
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
+}
+
+#flash {
+  margin-bottom: 10px;
+}
+
+.flash {
+  padding: 5px;
+}
+
+.alert {
+  background-color: yellow;
 }

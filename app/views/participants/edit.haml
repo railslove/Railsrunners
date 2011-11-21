@@ -4,10 +4,10 @@
 
   %p= "Hello, #{@participant.name}! Fill in your result for the run"
   .fieldset
-    = f.input :hours, :min => 0, :step => 1, :hint => 'h'
-    = f.input :minutes, :min => 0, :max => 59, :step => 1, :hint => 'm'
-    = f.input :seconds, :min => 0, :max => 59, :step => 1, :hint => 's'
-    = hidden_field_tag "token", params[:token]
+    =# f.input :hours, :min => 0, :step => 1, :hint => 'h'
+    =# f.input :minutes, :min => 0, :max => 59, :step => 1, :hint => 'm'
+    =# f.input :seconds, :min => 0, :max => 59, :step => 1, :hint => 's'
+    =# hidden_field_tag "token", params[:token]
 
   = f.submit 'Submit your result'
 

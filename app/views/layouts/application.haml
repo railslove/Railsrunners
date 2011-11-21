@@ -22,11 +22,13 @@
           %li.login=link_to "Sign in", new_user_session_path
           %li.signup=link_to "Sign up", new_user_registration_path
     
-    #flash
-      - flash.each do |type, value|
-        .flash{ :class => type.to_s }
-          = value 
     #content
+      #box
+        #box-01
+          #flash
+            - flash.each do |type, value|
+              .flash{ :class => type.to_s }
+                = value 
       = yield
 
     #footer

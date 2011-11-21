@@ -19,6 +19,41 @@ describe ParticipantsController do
     end
   end
 
+  describe 'GET edit' do
+    before :each do
+      @distance = Factory(:distance)
+      @run = Factory(:run, :distances => [@distance])
+      @run.stubs(:past?).returns(true)
+      @participant = Factory.build(:participant, :run => @run, :distance => @distance)
+      @participant.stubs(:cannot_participate_in_past_run)
+      @participant.save
+      Participant.expects(:find_by_result_token).returns(@participant)    
+    end
+
+    it 'is successful' do
+      get :edit, :id => @participant.id, :token => @participant.result_token
+      response.should be_success
+    end
+  end
+
+  describe 'PUT create' do
+    before :each do
+      @distance = Factory(:distance)
+      @run = Factory(:run, :distances => [@distance])
+      @run.stubs(:past?).returns(true)
+      @participant = Factory.build(:participant, :run => @run, :distance => @distance)
+      @participant.stubs(:cannot_participate_in_past_run)
+      @participant.save
+      Participant.expects(:find_by_result_token).returns(@participant)      
+    end
+
+    it 'updates a participant' do
+      put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @distance.id, :name => 'Twilight Dash'}
+      response.should redirect_to runs_url
+    end
+
+  end
+
   describe 'POST create' do
     before :each do
       @distance = Factory(:distance)

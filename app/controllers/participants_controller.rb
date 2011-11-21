@@ -26,12 +26,13 @@ class ParticipantsController < ApplicationController
   # TODO TEST  
   def edit
     @participant = Participant.find_by_result_token(params[:token])
+    redirect_to runs_url, :alert => "this run isn't in the past, please try after #{@participant.run.start_at}" if @participant && !@participant.run.past?
   end
 
   # TODO TEST
   def update
     @participant = Participant.find_by_result_token(params[:token])
-    if @participant && !@participant.run.past?
+    if @participant && @participant.run.past?
       redirect_to runs_url, :alert => 'Thanks for your time entry.'
     else
       redirect_to root_url, :alert => 'Something went wrong'    
