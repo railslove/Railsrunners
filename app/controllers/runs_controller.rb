@@ -15,7 +15,7 @@ class RunsController < ApplicationController
   end
 
   def create
-    @run = Run.new(params[:run].merge(:user_id => current_user.id))
+    @run = current_user.runs.build(params[:run])
     if @run.save
       redirect_to runs_url
     else

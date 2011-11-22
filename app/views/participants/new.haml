@@ -3,7 +3,7 @@
 = simple_form_for @participant do |f|
   = f.input :name
   = f.input :email
-  = f.association :run, :collection => Run.registerable
+  = f.association :run, :collection => @runs
   = f.association :distance, :collection => []
 
   = f.submit "Register for the run"

@@ -13,7 +13,7 @@ gem 'simple_form'
 gem 'heroku'
 gem 'httparty'
 gem 'postageapp', :path => "/Volumes/code/postageapp-ruby"
-#gem 'elanie', :path => "/Volumes/code/elanie-ruby"
+gem 'rspec-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -40,7 +40,6 @@ gem 'jquery-rails'
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false, :group => :test

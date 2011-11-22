@@ -9,16 +9,15 @@ describe Run do
   describe '#encode_google_map' do
 
     before(:each) do
-      @distance = Factory(:distance)
-      @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
-      @future_run.distances << @distance
-      @future_run.msid = "211270727460700862622.0004ae3543b46f1649927"
+      # maybe use rspec subjects
+      # TODO Factory => future_run [Jan, 22.11.2011]
+      @future_run = Factory.build(:run, :distances => [Factory(:distance)], :msid => "211270727460700862622.0004ae3543b46f1649927", :start_at => Time.now + 3.days)
     end
 
-    it 'should encode the url' do
+    it 'set the proper map url' do
       response = "http://maps.google.com/maps/api/staticmap?sensor=false&size=950x300&path=enc%3A_osuDh%7EwdPko%40zb%40sFpDdUxe%40%60FrPzElTxAda%40rAfk%40iN%7E_%40eJnWcQhYcQvXtVnQ"
       FakeWeb.register_uri(:get, "http://static-maps-generator.appspot.com/url?msid=#{@future_run.msid}&size=950x300", :body => response)
-      @future_run.save      
+      @future_run.send(:encode_google_map)      
       @future_run.map_url.should eql "http://maps.google.com/maps/api/staticmap?sensor=false&size=950x300&path=enc%3A_osuDh%7EwdPko%40zb%40sFpDdUxe%40%60FrPzElTxAda%40rAfk%40iN%7E_%40eJnWcQhYcQvXtVnQ"
     end
 
