@@ -5,6 +5,9 @@ describe RunsController do
 
   describe '#index' do
     before :each do
+      # TODO [Jan, 22.11.11]      
+      # throw it away to run - factory
+      # @run = Factory(:run)
       @distance1 = Factory(:distance, :distance_in_km => 3)
       @distance2 = Factory(:distance, :distance_in_km => 4)
       @run = Factory(:run, :distances => [@distance1, @distance2])
@@ -21,22 +24,31 @@ describe RunsController do
     end
   end
 
-    describe '#results' do
-      before :each do
-        distance1 = Factory(:distance, :distance_in_km => 3)
-        distance2 = Factory(:distance, :distance_in_km => 4)
-        @run = Factory.build(:run, :distances => [distance1, distance2], :start_at => Time.now-3.days)
-        @run.save(:validate => false)
-      end
+  describe '#results' do
+    before :each do
+      # TODO [Jan, 22.11.11]      
+      # throw it away to run - factory
+      # @run = Factory(:run)
+      distance1 = Factory(:distance, :distance_in_km => 3)
+      distance2 = Factory(:distance, :distance_in_km => 4)
+      # mock the past run.
+      @run = Factory.build(:run, :distances => [distance1, distance2], :start_at => Time.now-3.days)
+      @run.save(:validate => false)
+    end
 
-    it 'is successful' do
+    it 'should render successfully the page' do
       get :results
       response.should be_success
     end
 
-    it 'shows runs' do
+    it 'shows the visual_name of runs' do
       get :results
       response.body.should include(@run.visual_name)
+    end
+
+    it 'renders the right template' do
+      get :results
+      response.should render_template :results      
     end
   end
 
@@ -46,12 +58,18 @@ describe RunsController do
       sign_in :user, @user
     end
 
-    it 'is successful' do
+    it 'renders successfully the page' do
       get :new
       response.should be_success
     end
+
+    it 'renders the right template' do
+      get :new
+      response.should render_template :new      
+    end
   end
 
+  # TODO move into contextes [Jan, 22.11.2011]
   describe 'edit as owner' do
     before :each do
       @user = Factory(:user)
@@ -60,11 +78,15 @@ describe RunsController do
       sign_in :user, @user
     end
 
-    it 'is successful' do
+    it 'renders successfully the page' do
       get :edit, :id => @run.id
       response.should be_success
     end
 
+    it 'renders the right template' do
+      get :edit, :id => @run.id
+      response.should render_template :edit      
+    end
   end
   
   describe 'GET edit not as an owner' do

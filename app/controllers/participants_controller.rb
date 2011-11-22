@@ -33,6 +33,7 @@ class ParticipantsController < ApplicationController
   def update
     @participant = Participant.find_by_result_token(params[:token])
     if @participant && @participant.run.past?
+      # TODO update participant
       redirect_to runs_url, :alert => 'Thanks for your time entry.'
     else
       redirect_to root_url, :alert => 'Something went wrong'    

@@ -27,7 +27,7 @@ describe ParticipantsController do
 
   describe '#edit' do
     before :each do
-      # TODO maybe we look into the code because the tests doesn't looks good ;) [Jan, 22.11.11]      
+      # TODO maybe we look into the code because the tests doesn't feels to be the right way;) [Jan, 22.11.11]      
       @run = Factory(:run, :distances => [Factory(:distance)])
       @run.stubs(:past?).returns(true)
       @participant = Factory.build(:participant, :run => @run, :distance => @run.distances.first)
@@ -49,6 +49,7 @@ describe ParticipantsController do
   end
 
   describe '#update' do
+
     before :each do
       # TODO maybe we look into the code because the tests doesn't looks good ;) [Jan, 22.11.11]
       @distance = Factory(:distance)
@@ -60,9 +61,25 @@ describe ParticipantsController do
       Participant.expects(:find_by_result_token).returns(@participant)      
     end
 
-    it 'updates a participant' do
-      put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @distance.id, :name => 'Twilight Dash'}
-      response.should redirect_to runs_url
+    context "when params valid" do
+    
+      it 'updates a participant' do
+        # todo check the update of time here
+        # save the old time
+        # todo mock the update
+        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @distance.id, :name => 'Twilight Dash'}
+        # assert old time updated
+      end
+
+      it "redirects to runs_url" do
+        # todo mock the update
+        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @distance.id, :name => 'Twilight Dash'}
+        response.should redirect_to runs_url
+      end 
+    
+    end
+
+    context "when params invalid" do
     end
 
   end

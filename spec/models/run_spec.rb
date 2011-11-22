@@ -2,9 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Run do
 
-  it { should have_many(:participants) }
-  it { should have_many(:distances) }
-  it { should belong_to(:user) }
+  context "associations" do
+    it { should have_many(:participants) }
+    it { should have_many(:distances) }
+    it { should belong_to(:user) }
+  end
 
   describe '#encode_google_map' do
 
