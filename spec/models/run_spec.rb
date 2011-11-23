@@ -2,18 +2,16 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Run do
 
-  context "associations" do
-    it { should have_many(:participants) }
-    it { should have_many(:distances) }
-    it { should belong_to(:user) }
-  end
+  it { should have_many(:participants) }
+  it { should have_many(:distances) }
+  it { should belong_to(:user) }
 
   describe '#encode_google_map' do
 
     before(:each) do
       # maybe use rspec subjects
       # TODO Factory => future_run [Jan, 22.11.2011]
-      @future_run = Factory.build(:run, :distances => [Factory(:distance)], :msid => "211270727460700862622.0004ae3543b46f1649927", :start_at => Time.now + 3.days)
+      @future_run = Factory.build(:run, :msid => "211270727460700862622.0004ae3543b46f1649927", :start_at => Time.now + 3.days)
     end
 
     it 'set the proper map url' do
@@ -30,9 +28,7 @@ describe Run do
     context "when msid changed?" do
 
       it "should encode the url" do
-        @distance = Factory(:distance)
         @future_run = Factory.build(:run, :start_at => Time.now + 3.days, :msid => "211270727460700862622.0004ae3543b46f1649927")
-        @future_run.distances << @distance
         @future_run.should be_msid_changed
         @future_run.should_receive(:encode_google_map)
         @future_run.save!        
@@ -43,9 +39,7 @@ describe Run do
     context "when msid not changed?" do
 
       it "shouldn't encode the url" do
-        @distance = Factory(:distance)
         @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
-        @future_run.distances << @distance
         @future_run.should_not_receive(:encode_google_map)
         @future_run.save!        
       end
@@ -57,11 +51,8 @@ describe Run do
   describe 'scopes' do
 
       before(:each) do
-        @distance = Factory(:distance)
         @past_run = Factory.build(:run, :start_at => 3.days.ago)
         @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
-        @past_run.distances << @distance
-        @future_run.distances << @distance
         @past_run.save(:validate => false)
         @future_run.save
       end
@@ -117,9 +108,7 @@ describe Run do
 
     describe 'with only one distance' do
       before(:each) do
-        @distance = Factory(:distance)
-        @madrid_run = Factory.build(:run)
-        @madrid_run.distances << @distance
+        @madrid_run = Factory.build(:run, :distances => [Factory(:distance)])
         @madrid_run.save
       end
 
@@ -144,8 +133,7 @@ describe Run do
         5.times do |i|
           @distances << Factory(:distance, :distance_in_km => i+1)
         end
-        @hamburg_run =  Factory.build(:run)
-        @hamburg_run.distances << @distances
+        @hamburg_run =  Factory.build(:run, :distances => @distances)
         @hamburg_run.save
       end
 
@@ -163,9 +151,7 @@ describe Run do
 
     describe 'with only one distance' do
       before(:each) do
-        @distance = Factory(:distance, :distance_in_km => 5.5)
-        @madrid_run = Factory.build(:run)
-        @madrid_run.distances << @distance
+        @madrid_run = Factory.build(:run, :distances => [Factory(:distance, :distance_in_km => 5.5)])
         @madrid_run.save
       end
 
@@ -188,8 +174,7 @@ describe Run do
         5.times do |i|
           @distances << Factory(:distance, :distance_in_km => i+1.5)
         end
-        @hamburg_run =  Factory.build(:run)
-        @hamburg_run.distances << @distances
+        @hamburg_run =  Factory.build(:run, :distances => @distances)
         @hamburg_run.save
       end
 

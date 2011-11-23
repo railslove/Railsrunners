@@ -13,9 +13,7 @@ describe Distance do
   context 'conversions' do
 
     it 'calculates kilometeres and miles correctly' do
-      # 4.5 km =~ 2.8 mi
       Distance.new(:distance_in_km => 4.5).distance_in_mi.should be_within(0.01).of(2.8)
-      # 4.5 mi =~ 7.24 km
       Distance.new(:distance_in_mi => 4.5).distance_in_km.should be_within(0.01).of(7.24)
     end
 

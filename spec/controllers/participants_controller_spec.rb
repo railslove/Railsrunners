@@ -5,12 +5,7 @@ describe ParticipantsController do
 
   describe '#new' do
     before :each do
-      # TODO [Jan, 22.11.11]      
-      # throw it away to run - factory
-      # @run = Factory(:run)
-      @distance1 = Factory(:distance, :distance_in_km => 3)
-      @distance2 = Factory(:distance, :distance_in_km => 4)
-      @run = Factory(:run, :distances => [@distance1, @distance2])
+      @run = Factory(:run)
     end
 
     it 'is successful' do
@@ -28,7 +23,7 @@ describe ParticipantsController do
   describe '#edit' do
     before :each do
       # TODO maybe we look into the code because the tests doesn't feels to be the right way;) [Jan, 22.11.11]      
-      @run = Factory(:run, :distances => [Factory(:distance)])
+      @run = Factory(:run)
       @run.stubs(:past?).returns(true)
       @participant = Factory.build(:participant, :run => @run, :distance => @run.distances.first)
       @participant.stubs(:cannot_participate_in_past_run)
@@ -52,8 +47,7 @@ describe ParticipantsController do
 
     before :each do
       # TODO maybe we look into the code because the tests doesn't looks good ;) [Jan, 22.11.11]
-      @distance = Factory(:distance)
-      @run = Factory(:run, :distances => [@distance])
+      @run = Factory(:run)
       @run.stubs(:past?).returns(true)
       @participant = Factory.build(:participant, :run => @run, :distance => @run.distances.first)
       @participant.stubs(:cannot_participate_in_past_run)
@@ -67,13 +61,13 @@ describe ParticipantsController do
         # todo check the update of time here
         # save the old time
         # todo mock the update
-        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @distance.id, :name => 'Twilight Dash'}
+        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @run.distances.first.id, :name => 'Twilight Dash'}
         # assert old time updated
       end
 
       it "redirects to runs_url" do
         # todo mock the update
-        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @distance.id, :name => 'Twilight Dash'}
+        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @run.distances.first.id, :name => 'Twilight Dash'}
         response.should redirect_to runs_url
       end 
     

@@ -5,12 +5,7 @@ describe RunsController do
 
   describe '#index' do
     before :each do
-      # TODO [Jan, 22.11.11]      
-      # throw it away to run - factory
-      # @run = Factory(:run)
-      @distance1 = Factory(:distance, :distance_in_km => 3)
-      @distance2 = Factory(:distance, :distance_in_km => 4)
-      @run = Factory(:run, :distances => [@distance1, @distance2])
+      @run = Factory(:run)
     end
 
     it 'is successful' do
@@ -26,13 +21,8 @@ describe RunsController do
 
   describe '#results' do
     before :each do
-      # TODO [Jan, 22.11.11]      
-      # throw it away to run - factory
-      # @run = Factory(:run)
-      distance1 = Factory(:distance, :distance_in_km => 3)
-      distance2 = Factory(:distance, :distance_in_km => 4)
       # mock the past run.
-      @run = Factory.build(:run, :distances => [distance1, distance2], :start_at => Time.now-3.days)
+      @run = Factory.build(:run, :start_at => Time.now-3.days)
       @run.save(:validate => false)
     end
 
@@ -73,8 +63,7 @@ describe RunsController do
   describe 'edit as owner' do
     before :each do
       @user = Factory(:user)
-      distance = Factory(:distance, :distance_in_km => 3)      
-      @run = Factory(:run, :distances => [distance], :user => @user)
+      @run = Factory(:run, :user => @user)
       sign_in :user, @user
     end
 
@@ -92,8 +81,7 @@ describe RunsController do
   describe 'GET edit not as an owner' do
     before :each do
       @user = Factory(:user)
-      distance = Factory(:distance, :distance_in_km => 3)      
-      @run = Factory(:run, :distances => [distance])
+      @run = Factory(:run)
       sign_in :user, @user
     end
 
@@ -108,8 +96,7 @@ describe RunsController do
   describe '#update' do
     before :each do
       @user = Factory(:user)
-      distance = Factory(:distance, :distance_in_km => 3)      
-      @run = Factory(:run, :distances => [distance], :user => @user)
+      @run = Factory(:run, :user => @user)
       sign_in :user, @user
     end
 
@@ -131,7 +118,7 @@ describe RunsController do
     before :each do
       @user = Factory(:user)
       sign_in :user, @user
-      @run = Factory.build(:run, :distances => [Factory(:distance)])
+      @run = Factory.build(:run)
       controller.stub!(:current_user).and_return(@user)          
       @user.stub_chain(:runs, :build).and_return(@run)
     end
