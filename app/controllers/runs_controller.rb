@@ -1,6 +1,6 @@
 class RunsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:new, :create]
+  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update]
 
   def index
     @runs = Run.registerable(:order => "runs.start_at DESC", :include => [:user])

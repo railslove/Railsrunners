@@ -9,4 +9,8 @@ FactoryGirl.define do
     notes "notes notes notes"
     distances {|distances| [distances.association(:distance)]}  
   end
+
+  factory :past_run, :parent => :run do
+    start_at Time.now-3.days
+  end
 end

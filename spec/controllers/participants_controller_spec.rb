@@ -21,24 +21,60 @@ describe ParticipantsController do
   end
 
   describe '#edit' do
-    before :each do
-      # TODO maybe we look into the code because the tests doesn't feels to be the right way;) [Jan, 22.11.11]      
-      @run = Factory(:run)
-      @run.stubs(:past?).returns(true)
-      @participant = Factory.build(:participant, :run => @run, :distance => @run.distances.first)
-      @participant.stubs(:cannot_participate_in_past_run)
-      @participant.save
-      Participant.expects(:find_by_result_token).returns(@participant)    
+
+    context "without a participation" do
+
+      before :each do
+        @run = Factory(:run)
+        Participant.expects(:find_by_result_token)
+      end
+
+      it 'should be redirected to runs url' do
+        get :edit, :id =>14, :token =>"antsuansuhanstuhnsathun"
+        response.should redirect_to runs_url
+      end
+
     end
 
-    it 'is successful' do
-      get :edit, :id => @participant.id, :token => @participant.result_token
-      response.should be_success
+    context "a participation for a past run" do
+
+      before :each do
+        # TODO maybe we look into the code because the tests doesn't feels to be the right way;) [Jan, 22.11.11]      
+        @participant = Factory.build(:participant)
+        @participant.stubs(:cannot_participate_in_past_run)
+        @participant.save
+        Participant.expects(:find_by_result_token).returns(@participant)  
+        @participant.stub_chain(:run, :past?).and_return(true) 
+      end
+
+      it 'should be successful' do
+        get :edit, :id => @participant.id, :token => @participant.result_token
+        response.should be_success
+      end
+
+      it 'should render the edit template' do
+        get :edit, :id => @participant.id, :token => @participant.result_token
+        response.should render_template("edit")
+      end
+
     end
 
-    it 'render the edit template' do
-      get :edit, :id => @participant.id, :token => @participant.result_token
-      response.should render_template("edit")
+    context "a participation for a future run" do
+
+      before :each do
+        # TODO maybe we look into the code because the tests doesn't feels to be the right way;) [Jan, 22.11.11]      
+        @participant = Factory.build(:participant)
+        @participant.stubs(:cannot_participate_in_past_run)
+        @participant.save
+        Participant.expects(:find_by_result_token).returns(@participant)   
+        @participant.run.stubs(:past?).returns(false)                              
+      end
+
+      it 'should be redirected to runs url' do
+        get :edit, :id => @participant.id, :token => @participant.result_token
+        response.should redirect_to runs_url
+      end
+
     end
 
   end
@@ -47,33 +83,67 @@ describe ParticipantsController do
 
     before :each do
       # TODO maybe we look into the code because the tests doesn't looks good ;) [Jan, 22.11.11]
-      @run = Factory(:run)
-      @run.stubs(:past?).returns(true)
-      @participant = Factory.build(:participant, :run => @run, :distance => @run.distances.first)
+      @participant = Factory.build(:participant)
       @participant.stubs(:cannot_participate_in_past_run)
       @participant.save
       Participant.expects(:find_by_result_token).returns(@participant)      
     end
 
     context "when params valid" do
-    
-      it 'updates a participant' do
-        # todo check the update of time here
-        # save the old time
-        # todo mock the update
-        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @run.distances.first.id, :name => 'Twilight Dash'}
-        # assert old time updated
+
+      context "and run is in the past" do
+
+        before(:each) do
+          @participant.run.stubs(:past?).returns(true)   
+        end
+
+        it 'updates a participant' do
+          put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:time => 3600}
+          @participant.time.should be(3600)
+        end
+
+        it "redirects to runs_url" do
+          put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:time => 360}
+          response.should redirect_to runs_url
+        end 
+
       end
 
-      it "redirects to runs_url" do
-        # todo mock the update
-        put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:run_id => @participant.run.id, :distance_id => @run.distances.first.id, :name => 'Twilight Dash'}
-        response.should redirect_to runs_url
-      end 
-    
+      context "and run is in the future" do
+
+        before(:each) do
+          @participant.run.stubs(:past?).returns(false)   
+        end
+
+        it 'updates a participant' do
+          put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:time => 3600}
+          @participant.time.should be(0)
+        end
+
+        it "redirects to root_url" do
+          put :update, :id => @participant.id, :token => @participant.result_token, :participant => {:time => 360}
+          response.should redirect_to root_url
+        end     
+
+      end
+        
     end
 
     context "when params invalid" do
+
+      before(:each) do
+        @participant.run.stubs(:past?).returns(false)   
+      end
+
+      it 'updates a participant' do
+        put :update, :id => @participant.id, :token => @participant.result_token
+        @participant.time.should be(0)
+      end
+
+      it "redirects to root_url" do
+        put :update, :id => "14", :token => "ahusanuhnstahus"
+        response.should redirect_to root_url
+      end 
     end
 
   end
@@ -81,7 +151,7 @@ describe ParticipantsController do
   describe '#create' do
 
     before :each do
-      @run = Factory(:run, :distances => [Factory(:distance)])
+      @run = Factory(:run)
     end
 
     context "when params valid" do
