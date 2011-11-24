@@ -12,9 +12,12 @@ describe Distance do
 
   context 'conversions' do
 
-    it 'calculates kilometeres and miles correctly' do
+    it 'calculates kilometeres in miles' do
       Distance.new(:distance_in_km => 4.5).distance_in_mi.should be_within(0.01).of(2.8)
-      Distance.new(:distance_in_mi => 4.5).distance_in_km.should be_within(0.01).of(7.24)
+    end
+
+    it 'calculates miles in kilometers' do
+      Distance.new(:distance_in_km => 4.5).distance_in_mi.should be_within(0.01).of(2.8)
     end
 
   end
