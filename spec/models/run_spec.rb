@@ -10,8 +10,7 @@ describe Run do
 
     before(:each) do
       # maybe use rspec subjects
-      # TODO Factory => future_run [Jan, 22.11.2011]
-      @future_run = Factory.build(:run, :msid => "211270727460700862622.0004ae3543b46f1649927", :start_at => Time.now + 3.days)
+      @future_run = Factory.build(:future_run, :msid => "211270727460700862622.0004ae3543b46f1649927")
     end
 
     it 'set the proper map url' do
@@ -28,7 +27,7 @@ describe Run do
     context "when msid changed?" do
 
       it "should encode the url" do
-        @future_run = Factory.build(:run, :start_at => Time.now + 3.days, :msid => "211270727460700862622.0004ae3543b46f1649927")
+        @future_run = Factory.build(:future_run, :msid => "211270727460700862622.0004ae3543b46f1649927")
         @future_run.should be_msid_changed
         @future_run.should_receive(:encode_google_map)
         @future_run.save!        
@@ -39,7 +38,7 @@ describe Run do
     context "when msid not changed?" do
 
       it "shouldn't encode the url" do
-        @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
+        @future_run = Factory.build(:future_run)
         @future_run.should_not_receive(:encode_google_map)
         @future_run.save!        
       end
@@ -51,8 +50,8 @@ describe Run do
   describe 'scopes' do
 
       before(:each) do
-        @past_run = Factory.build(:run, :start_at => 3.days.ago)
-        @future_run = Factory.build(:run, :start_at => Time.now + 3.days)
+        @past_run = Factory.build(:past_run)
+        @future_run = Factory.build(:future_run)
         @past_run.save(:validate => false)
         @future_run.save
       end

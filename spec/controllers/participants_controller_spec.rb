@@ -23,23 +23,21 @@ describe ParticipantsController do
   describe '#edit' do
 
     context "without a participation" do
-
       before :each do
         @run = Factory(:run)
         Participant.expects(:find_by_result_token)
       end
 
       it 'should be redirected to runs url' do
-        get :edit, :id =>14, :token =>"antsuansuhanstuhnsathun"
+        get :edit, :id =>14, :token =>"mysupertoken"
         response.should redirect_to runs_url
       end
-
     end
 
     context "a participation for a past run" do
 
       before :each do
-        # TODO maybe we look into the code because the tests doesn't feels to be the right way;) [Jan, 22.11.11]      
+        # TODO refactor the code [Jan, 22.11.11]      
         @participant = Factory.build(:participant)
         @participant.stubs(:cannot_participate_in_past_run)
         @participant.save
@@ -62,7 +60,7 @@ describe ParticipantsController do
     context "a participation for a future run" do
 
       before :each do
-        # TODO maybe we look into the code because the tests doesn't feels to be the right way;) [Jan, 22.11.11]      
+        # TODO refactor the code [Jan, 22.11.11]      
         @participant = Factory.build(:participant)
         @participant.stubs(:cannot_participate_in_past_run)
         @participant.save
@@ -82,7 +80,7 @@ describe ParticipantsController do
   describe '#update' do
 
     before :each do
-      # TODO maybe we look into the code because the tests doesn't looks good ;) [Jan, 22.11.11]
+      # TODO refactor the code [Jan, 22.11.11]      
       @participant = Factory.build(:participant)
       @participant.stubs(:cannot_participate_in_past_run)
       @participant.save

@@ -3,11 +3,8 @@ require 'spec_helper'
 describe Participant do
 
   context 'associations' do
-
     it { should belong_to :run }
-
     it { should belong_to :distance }
-
   end
 
   describe 'registration' do
@@ -49,7 +46,6 @@ describe Participant do
   describe "accept" do
     
     before(:each) do
-      run = Factory(:run)
       @participant = Participant.new(Factory(:participant).attributes)  
     end
 
@@ -63,7 +59,6 @@ describe Participant do
   describe "create_result_token" do
 
     before(:each) do
-      run = Factory(:run)
       @participant = Participant.new(Factory(:participant).attributes)  
     end
 
@@ -76,7 +71,15 @@ describe Participant do
 
   describe "send_a_email" do
     
-    it "should send an email to the participant"
+    before(:each) do
+      @participant = Participant.new(Factory(:participant).attributes)        
+      @mail = mock("Mail", :deliver => true)
+    end
+
+    it "should send an email to the participant" do
+      ParticipantMailer.should_receive(:result_insert_link).with(@participant).and_return(@mail)
+      @participant.save
+    end
 
   end
 

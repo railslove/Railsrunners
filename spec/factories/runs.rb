@@ -13,4 +13,9 @@ FactoryGirl.define do
   factory :past_run, :parent => :run do
     start_at Time.now-3.days
   end
+
+  factory :future_run, :parent => :run do
+    start_at Time.now + 3.days
+  end
+
 end
