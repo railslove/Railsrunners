@@ -184,8 +184,6 @@ describe Run do
 
       it "should return the proper distances" do
         @hamburg_run.distances_in_km.should eq "1.5 km - 5.5 km"
-        # 1.5 km =~ 0.93 mi
-        # 5.5 km =~ 3.42 mi
         @hamburg_run.distances_in_mi.should eq "0.93 mi - 3.42 mi"
       end
     end
