@@ -9,10 +9,10 @@ describe Participant do
   describe 'registration' do
     it 'cannot happen for a past race' do
       run = Factory(:run, :distances => [Factory(:distance)])
-      run.update_attribute(:start_at, 3.days.ago)
+      participant = Factory(:participant, :run => run)
+      participant.should be_valid
 
-      participant = Participant.new(:email => 'combine_072@our.benefacto.rs')
-      participant.run = run
+      run.update_attributes(:start_at => 3.days.ago)
       participant.should_not be_valid
       participant.errors[:run].should_not be_empty
     end
