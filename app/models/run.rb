@@ -18,38 +18,27 @@ class Run < ActiveRecord::Base
 
   def visual_name(unit = 'km')
     unit = 'km' unless unit == 'mi'
-    "#{self.name} (#{self.send(:"distances_in_#{unit}")})"
-  end
-
-  def distances_in_km
-    distances = self.distances.map(&:distance_in_km)
-    # let's do that to get rid of "1.0 km" and show "1 km" instead
-    distances = distances.map{ |distance| distance.to_i == distance ? distance.to_i : distance }
-    if distances.size > 1
-      "#{distances.min} km - #{distances.max} km"
-    else
-      "#{distances.min} km"
-    end
-  end
-
-  def distances_in_mi
-    distances = self.distances.map(&:distance_in_mi)
-    distances = distances.map{ |distance| distance.to_i == distance ? distance.to_i : distance }
-    if distances.size > 1
-      "#{distances.min} mi - #{distances.max} mi"
-    else
-      "#{distances.min} mi"
-    end
+    "#{name} (#{distances_in(unit)})"
   end
 
   def past?
-    self.start_at.past?
+    start_at.past?
   end
 
   private
 
+  def distances_in(unit)
+    my_distances = (unit == "km" ? distances.map(&:distance_in_km) : distances.map(&:distance_in_mi))
+    my_distances = my_distances.map{ |distance| distance.to_i == distance ? distance.to_i : distance }
+    if my_distances.size > 1
+      "#{my_distances.min} #{unit} - #{my_distances.max} #{unit}"
+    else
+      "#{my_distances.min} #{unit}"
+    end
+  end
+
   def encode_google_map
-    response = HTTParty.get "http://static-maps-generator.appspot.com/url?msid=#{self.msid}&size=950x300"
+    response = HTTParty.get "http://static-maps-generator.appspot.com/url?msid=#{msid}&size=950x300"
     self.map_url = response.body
   end
 
@@ -58,8 +47,8 @@ class Run < ActiveRecord::Base
   #####################################
 
   def remove_duplicate_distances
-    self.distances.each do |distance|
-      ary = self.distances - [distance]
+    distances.each do |distance|
+      ary = distances - [distance]
       ary.each do |distance_to_check|
         distance_to_check.destroy if distance.distance_in_km == distance_to_check.distance_in_km && (!distance.destroyed? && !distance_to_check.destroyed?)
       end
@@ -67,7 +56,6 @@ class Run < ActiveRecord::Base
   end
 
   def start_at_in_future
-     errors.add(:base, "You can't add a run in past") if self.start_at.present? && !self.start_at.future?
+     errors.add(:base, "You can't add a run in past") if start_at.present? && !start_at.future?
   end
-
 end

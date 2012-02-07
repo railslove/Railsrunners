@@ -8,7 +8,6 @@ describe Participant do
   end
 
   describe 'registration' do
-
     context "with a past run" do
 
       before(:each) do

@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :run do
+  factory :run do |r|
     name 'My super duper run'
-    user
+    r.user {|r| r.association(:user)}
     url "http://mysuperrun.com"
     charity "lorem ipsum doro"
     charity_url "http://mycharity.com"
