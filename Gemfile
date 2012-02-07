@@ -12,7 +12,7 @@ gem 'haml'
 gem 'simple_form'
 gem 'heroku'
 gem 'httparty'
-gem 'postageapp', :path => "/Volumes/code/postageapp-ruby"
+# gem 'postageapp', :path => "/Volumes/code/postageapp-ruby"
 gem 'rspec-rails'
 
 # Gems used only for assets and not required
