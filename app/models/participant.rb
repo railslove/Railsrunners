@@ -14,7 +14,7 @@ class Participant < ActiveRecord::Base
   private
 
   def cannot_participate_in_past_run
-    errors.add(:run, 'has already took place. You can only register for upcoming runs.') if self.run && self.run.past?
+    errors.add(:run, 'has already took place. You can only register for upcoming runs.') if run && run.past?
   end
 
   def accept
