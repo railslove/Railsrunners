@@ -83,99 +83,54 @@ describe Run do
      end
   end
 
-  describe 'integer distances in visual_name' do
+  describe 'visual_name' do
+    before(:each) do
+      @run = Factory.build(:run, :name => "My super duper run")
+    end
 
-    describe 'with only one distance' do
-      before(:each) do
-        @distance = Factory(:distance, :distance_in_km => 9)
-        @madrid_run = Factory.build(:run)
-        @madrid_run.distances << @distance
-        @madrid_run.save
+    describe 'only one distance' do
+      it "displays integer values without comma" do
+        @run.distances << Factory(:distance, :distance_in_km => 9)
+        @run.save!
+
+        @run.visual_name.should eq "My super duper run (9 km)"
+        @run.visual_name('mi').should eq "My super duper run (5.59 mi)"
       end
 
-      it "should return its visual name" do
-        @madrid_run.visual_name.should eq "My super duper run (9 km)"
-      end
+      it "displays float values exactly" do
+        @run.distances << Factory(:distance, :distance_in_km => 5.5)
+        @run.save!
 
-      it "should return the proper distances in km" do
-        @madrid_run.distances_in_km.should eq "9 km"
-      end
-
-      it "should return the proper distances in miles" do
-        # 5 km =~ 5.59 mi
-        @madrid_run.distances_in_mi.should eq "5.59 mi"
+        @run.visual_name.should eq "My super duper run (5.5 km)"
+        @run.visual_name('mi').should eq "My super duper run (3.42 mi)"
       end
     end
 
-    describe 'with many distances' do
-
+    describe 'many distances' do
       before(:each) do
         @distances = []
+      end
+
+      it "displays integer values without comma" do
         5.times do |i|
           @distances << Factory(:distance, :distance_in_km => i+1)
         end
-        @hamburg_run =  Factory.build(:run)
-        @hamburg_run.distances << @distances
-        @hamburg_run.save
+        @run.distances << @distances
+
+        @run.visual_name.should eq("My super duper run (1 km - 5 km)")
+        @run.visual_name('mi').should eq("My super duper run (0.62 mi - 3.11 mi)")
       end
 
-      it "should return its visual name" do
-        @hamburg_run.visual_name.should eq("My super duper run (1 km - 5 km)")
-      end
-
-      it "should return the proper distances in km" do
-        @hamburg_run.distances_in_km.should eq "1 km - 5 km"
-      end
-    end
-  end
-
-  describe 'float distances in visual_name' do
-
-    describe 'with only one distance' do
-      before(:each) do
-        @distance = Factory(:distance, :distance_in_km => 5.5)
-        @madrid_run = Factory.build(:run)
-        @madrid_run.distances << @distance
-        @madrid_run.save
-      end
-
-      it "should return its visual name" do
-        @madrid_run.visual_name.should eq "My super duper run (5.5 km)"
-        @madrid_run.visual_name('mi').should eq "My super duper run (3.42 mi)"
-      end
-
-      it "should return the proper distances" do
-        @madrid_run.distances_in_km.should eq "5.5 km"
-        # 5.5 km =~ 3.42 mi
-        @madrid_run.distances_in_mi.should eq "3.42 mi"
-      end
-    end
-
-    describe 'with many distances' do
-
-      before(:each) do
-        @distances = []
+      it "displays float values exactly" do
         5.times do |i|
           @distances << Factory(:distance, :distance_in_km => i+1.5)
         end
-        @hamburg_run =  Factory.build(:run)
-        @hamburg_run.distances << @distances
-        @hamburg_run.save
-      end
+        @run.distances << @distances
 
-      it "should return its visual name" do
-        @hamburg_run.visual_name.should eq("My super duper run (1.5 km - 5.5 km)")
-        @hamburg_run.visual_name('mi').should eq("My super duper run (0.93 mi - 3.42 mi)")
-      end
-
-      it "should return the proper distances" do
-        @hamburg_run.distances_in_km.should eq "1.5 km - 5.5 km"
-        # 1.5 km =~ 0.93 mi
-        # 5.5 km =~ 3.42 mi
-        @hamburg_run.distances_in_mi.should eq "0.93 mi - 3.42 mi"
+        @run.visual_name.should eq("My super duper run (1.5 km - 5.5 km)")
+        @run.visual_name('mi').should eq("My super duper run (0.93 mi - 3.42 mi)")
       end
     end
   end
-
 end
 
