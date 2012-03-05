@@ -11,6 +11,8 @@ gem 'devise'
 gem 'haml'
 gem 'simple_form'
 gem 'heroku'
+gem 'web_translate_it'
+gem 'web_translate_it_server'
 gem 'httparty'
 # gem 'postageapp', :path => "/Volumes/code/postageapp-ruby"
 gem 'rspec-rails'

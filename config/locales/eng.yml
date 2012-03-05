@@ -1,0 +1,6 @@
+en:
+  runs:
+    index:
+      participants:
+        one: "1 participant"
+        other: "%{count} participants"
